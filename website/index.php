@@ -16,9 +16,9 @@ $errors = array();
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>russellthackston.me</title>
-	<meta name="description" content="Russell Thackston's personal website for IT 5236">
-	<meta name="author" content="Russell Thackston">
+	<title>clayfulcher.me</title>
+	<meta name="description" content="Clay Fulcher's personal website for IT 5236">
+	<meta name="author" content="Clay Fulcher">
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
