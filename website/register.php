@@ -48,15 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<title>russellthackston.me</title>
 	<meta name="description" content="Russell Thackston's personal website for IT 5233">
 	<meta name="author" content="Russell Thackston">
-	<link rel="stylesheet" href="css/style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+  	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <!--1. Display Errors if any exists 
 	2. Display Registration form (sticky):  Username, Password, Question, and Answer -->
-<body>
+<body class="section no-pad-bot light-blue darken-4" id="index-banner">
 	<?php include 'include/header.php'; ?>
 	
-	<h2>Register</h2>
+	<h2 class="amber-text text-accent-2">Register</h2>
 	
 	<?php include('include/messages.php'); ?>
 		
@@ -76,5 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<a href="login.php">Already a member?</a>
 	<?php include 'include/footer.php'; ?>
 	<script src="js/site.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ 	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+
 </body>
 </html>

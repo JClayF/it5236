@@ -79,16 +79,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>russellthackston.me</title>
-	<meta name="description" content="Russell Thackston's personal website for IT 5233">
-	<meta name="author" content="Russell Thackston">
-	<link rel="stylesheet" href="css/style.css">
+	<title>clayfulcher.me</title>
+	<meta name="description" content="Clay Fulcher's personal website for Sports Lists!">
+	<meta name="author" content="Clay Fulcher">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+  	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="section no-pad-bot light-blue darken-4" id="index-banner">
 	<?php include 'include/header.php'; ?>
 
-	<h2>Edit Profile</h2>
+	<h2 class="amber-text text-accent-2">Edit Profile</h2>
 	
 	<?php include 'include/messages.php'; ?>	
 	
@@ -109,7 +110,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			<input type="submit" value="Update profile" />
 		</form>
 	</div>
+	<h3 class="white-text">
+		&#34;One more time for the greatest team in America&#33;&#34;
+	</h3>
 	<?php include 'include/footer.php'; ?>
 	<script src="js/site.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ 	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+
 </body>
 </html>

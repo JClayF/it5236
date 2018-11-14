@@ -41,14 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<title>russellthackston.me</title>
 	<meta name="description" content="Russell Thackston's personal website for IT 5233">
 	<meta name="author" content="Russell Thackston">
-	<link rel="stylesheet" href="css/style.css">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+  	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen">	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="section no-pad-bot light-blue darken-4" id="index-banner">
 	<script src="js/site.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ 	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
 	<?php include 'include/header.php'; ?>
 	<main id="wrapper">
-		<h2>Reset Password</h2>
+		<h2 class="amber-text text-accent-2">Reset Password</h2>
 		<?php include('include/messages.php'); ?>
 		<form method="post" action="password.php">
 			New password:

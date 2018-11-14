@@ -1,4 +1,4 @@
-<p class="footer">Copyright &copy; <?php echo date("Y"); ?> Russell Thackston</p>
+<p class="footer white-text">Copyright &copy; <?php echo date("Y"); ?> Clay Fulcher</p>
 <?php
 
 if ($_COOKIE['debug'] == "true") {

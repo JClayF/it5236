@@ -81,30 +81,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>russellthackston.me</title>
-	<meta name="description" content="Russell Thackston's personal website for IT 5233">
-	<meta name="author" content="Russell Thackston">
-	<link rel="stylesheet" href="css/style.css">
+	<title>clayfulcher.me</title>
+	<meta name="description" content="Clay Fulcher's personal website for Sports Lists!">
+	<meta name="author" content="Clay Fulcher">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+  	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen">	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="section no-pad-bot light-blue darken-4" id="index-banner">
 	<?php include 'include/header.php'; ?>
 	<div class="breadcrumbs">
-		<a href="list.php">Back to things list</a>
+		<a href="list.php" class="amber-text text-accent-2">Back to things list</a>
 	</div>
 	
 	<?php include('include/messages.php'); ?>
 	
 	<div class="topiccontainer">
-		<p class="topictitle"><?php echo $thing['thingname']; ?></p>
+		<h2 class="amber-text text-accent-2 topictitle"><?php echo $thing['thingname']; ?></h2>
 		<p class="topictagline"><?php echo $thing['username']; ?> on <?php echo $thing['thingcreated']; ?></p>
 		<?php if ($thing['filename'] != NULL) { ?>
 			<p class="topicattachment"><a href="attachments/<?php echo $thing['thingattachmentid'] . '-' . $thing['filename']; ?>"><?php echo $thing['filename']; ?></a></p>
 		<?php } else { ?>
-			<p class="topicattachment">No attachment</p>
+			<p class="topicattachment white-text">No attachment</p>
 		<?php } ?>
 	</div>
-	<ul class="comments">
+	<ul class="comments white text"">
 		<?php foreach ($comments as $comment) { ?>
 		<li>
 			<?php echo $comment['commenttext']; ?>
@@ -129,7 +130,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<input type="submit" name="start" value="Add comment" />
 		</form>
 	</div>
+	<h4 class="white-text">&#34;G.A.T.A&#34;</h4>
 	<?php include 'include/footer.php'; ?>
 	<script src="js/site.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ 	<script src="js/materialize.js"></script>
+	<script src="js/init.js"></script>
+
 </body>
 </html>

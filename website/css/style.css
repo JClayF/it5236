@@ -85,6 +85,12 @@ input[type="submit"] {
 	margin-bottom: 20px;
 }
 
+input[type="radio"] {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+
 p.footer {
 	margin-top: 50px;
 }
@@ -121,4 +127,14 @@ div.message {
 
 div.newattachmenttype {
 	background-color: #ccffcc;
+}
+
+#wrapper{ 
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto; 
+	background-color: gold;
+	padding: 14px 25px 100px;
+	border-radius: 20px;
+	box-shadow: inset -3px -3px 3px 3px #00332B;
 }

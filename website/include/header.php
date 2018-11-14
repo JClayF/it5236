@@ -23,30 +23,30 @@
 	}
 
 
-?>
+?>  	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen">
 	<div class="nav">
-		<a href="index.php">Home</a>
+		<a href="index.php" class="amber-text text-accent-2">Home</a>
 		&nbsp;&nbsp;
 		<?php if (!$loggedin) { ?>
-			<a href="login.php">Login</a>
+			<a href="login.php" class="amber-text text-accent-2">Login</a>
 			&nbsp;&nbsp;
-			<a href="register.php">Register</a>
+			<a href="register.php" class="amber-text text-accent-2">Register</a>
 			&nbsp;&nbsp;
 		<?php } ?>
 		<?php if ($loggedin) { ?>
-			<a href="list.php">List</a>
+			<a href="list.php" class="amber-text text-accent-2">List</a>
 			&nbsp;&nbsp;
-			<a href="editprofile.php">Profile</a>
+			<a href="editprofile.php" class="amber-text text-accent-2">Profile</a>
 			&nbsp;&nbsp;
 			<?php if ($isadmin) { ?>
-				<a href="admin.php">Admin</a>
+				<a href="admin.php" class="amber-text text-accent-2">Admin</a>
 				&nbsp;&nbsp;
 			<?php } ?>
-			<a href="fileviewer.php?file=include/help.txt">Help</a>
+			<a href="fileviewer.php?file=include/help.txt" class="amber-text text-accent-2">Help</a>
 			&nbsp;&nbsp;
-			<a href="logout.php">Logout</a>
+			<a href="logout.php" class="amber-text text-accent-2">Logout</a>
 			&nbsp;&nbsp;
 
 		<?php } ?>
 	</div>
-	<h1>IT 5236</h1>
+	<h1 class="white-text">IT 5236</h1>
