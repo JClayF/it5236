@@ -2615,6 +2615,66 @@ class Application {
         }
 
     }
+	
+	/*
+	 // Validates a provided username or email address and sends a password reset email
+   public function updatePassword($password, $passwordresetid, &$errors) {
+
+		
+ 
+		$url = "https://2t3cdwerr2.execute-api.us-east-1.amazonaws.com/default/updatePassword?password=".$password."&passwordresetid=".$passwordresetid;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : Fr3k1LDKGa4xNIjbeUdVZ46khz27MVy45Cxc3irH'));
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+
+			if($httpCode == 400) {
+
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+
+			} else if($httpCode == 500) {
+
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+
+			} else if($httpCode == 200) {
+
+	            $this->auditlog("newAttachmentType", "web service response => " . $response);
+				$regs = json_decode($response)->newAttachmentType;
+		        $this->auditlog("newAttachmentType", "success");
+
+			}
+
+		}
+
+		curl_close($ch);
+
+    }
+	*/
+	
 
     function getFile($name){
         return file_get_contents($name);
