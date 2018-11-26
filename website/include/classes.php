@@ -1076,7 +1076,66 @@ class Application {
             return FALSE;
         }
     }
+	/*
+    public function login($username, $password, &$errors) {
+ 
+		$username = $user['username'];
+		$password = $user['passwordhash'];
+		
+ 
+		$url = "https://xu4v67q05d.execute-api.us-east-1.amazonaws.com/default/loginUser?username=".$username."&password=".$password;
 
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : 1EOpwVyaN8BNZ8cGVnPF7ZoadUzKUPd46n3xW27i'));
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+
+			if($httpCode == 400) {
+
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+
+			} else if($httpCode == 500) {
+
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+
+			} else if($httpCode == 200) {
+
+	            $this->auditlog("login", "web service response => " . $response);
+				$regs = json_decode($response)->login;
+		        $this->auditlog("login", "success");
+
+			}
+
+		}
+
+		curl_close($ch);
+
+    }
+	
+	*/
     // Logs out the current user based on session ID
         public function logout() {
 
@@ -1216,6 +1275,9 @@ class Application {
         }
 
     }
+/*
+
+I got this one to show the array in the database, but couldn't get it on the website.
 
     public function getThings(&$errors) {
         
@@ -1281,7 +1343,7 @@ class Application {
     }
 
 
-/*
+*/
     // Get a list of things from the database and will return the $errors array listing any errors encountered
     public function getThings(&$errors) {
 
@@ -1325,7 +1387,7 @@ class Application {
         return $things;
 
     }
-*/
+
     // Get a single thing from the database and will return the $errors array listing any errors encountered
     public function getThing($thingid, &$errors) {
 
@@ -1387,6 +1449,8 @@ class Application {
     }
 
 /*
+This one gave me for each errors that I couldn't resolve
+
     public function getComments($thingid, &$errors) {
 
     		$url = "https://c8ypvu6eu8.execute-api.us-east-1.amazonaws.com/default/getComments?thingid=".$thingid;
@@ -1499,7 +1563,7 @@ class Application {
         return $comments;
 
     }
-
+	
     // Handles the saving of uploaded attachments and the creation of a corresponding record in the attachments table.
     public function saveAttachment($dbh, $attachment, &$errors) {
 
@@ -1651,7 +1715,67 @@ class Application {
             return FALSE;
         }
     }
+	
+	/*
+	public function addThing($name, $attachment, &$errors) {
 
+		
+ 
+		$url = "https://aig71s00ke.execute-api.us-east-1.amazonaws.com/default/addThings?name=".$name."&attachment=".$attachment;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : B3ZYDhvVcxEvF06kbS4VamnU8DMfZB67KwFrBPSc'));
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+		
+		// Create a new ID
+                $thingid = bin2hex(random_bytes(16));
+
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+
+			if($httpCode == 400) {
+
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+
+			} else if($httpCode == 500) {
+
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+
+			} else if($httpCode == 200) {
+
+	            $this->auditlog("addThing", "web service response => " . $response);
+				$regs = json_decode($response)->addThing;
+		        $this->auditlog("addThing", "success");
+
+			}
+
+		}
+
+		curl_close($ch);
+
+    }
+*/
     // Adds a new comment to the database
     public function addComment($text, $thingid, $attachment, &$errors) {
 
@@ -1724,6 +1848,66 @@ class Application {
         }
     }
 
+	/*
+	public function addComment($text, $thingid, $attachment, &$errors) {
+
+		
+ 
+		$url = "https://8op0j2aswg.execute-api.us-east-1.amazonaws.com/default/addComment?text=".$text."&thingid=".$thingid."&attachmentid".$attachmentid;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : O05N6BCp5m2YRHpPMotuL1kvmns6kf6b7sfxao5j'));
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+		
+		// Create a new ID
+                $thingid = bin2hex(random_bytes(16));
+
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+
+			if($httpCode == 400) {
+
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+
+			} else if($httpCode == 500) {
+
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+
+			} else if($httpCode == 200) {
+
+	            $this->auditlog("addComment", "web service response => " . $response);
+				$regs = json_decode($response)->addComment;
+		        $this->auditlog("addComment", "success");
+
+			}
+
+		}
+
+		curl_close($ch);
+
+    }
+	*/
     // Get a list of users from the database and will return the $errors array listing any errors encountered
     public function getUsers(&$errors) {
 
@@ -2083,63 +2267,63 @@ class Application {
     }
 
 
-public function getAttachmentTypes(&$errors) {
+	public function getAttachmentTypes(&$errors) {
 
 
-$user = $this->getSessionUser($errors);
-    $registrationcode = $user["registrationcode"];
-$url = "https://erl2pwj6vf.execute-api.us-east-1.amazonaws.com/default/getFile";
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : F3Me8ryYy636lLIh1TPrG5OSlkBU5Wj8581hniXO'));
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response  = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$this->debug($response);
-$this->auditlog("getAtts", "response = : $response");
+		$user = $this->getSessionUser($errors);
+		$registrationcode = $user["registrationcode"];
+		$url = "https://erl2pwj6vf.execute-api.us-east-1.amazonaws.com/default/getFile";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : F3Me8ryYy636lLIh1TPrG5OSlkBU5Wj8581hniXO'));
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$this->debug($response);
+		$this->auditlog("getAtts", "response = : $response");
 
-if ($response === FALSE) {
-  $errors[] = "An unexpected failure occurred contacting the web service.";
-} else {
-  if($httpCode == 400) {
+			if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+			} else {
+				if($httpCode == 400) {
 
-    // JSON was double-encoded, so it needs to be double decoded
-    $errorsList = json_decode(json_decode($response))->errors;
-    foreach ($errorsList as $err) {
-      $errors[] = $err;
-    }
-    if (sizeof($errors) == 0) {
-      $errors[] = "Bad input";
-    }
-  } else if($httpCode == 500) {
-    $errorsList = json_decode(json_decode($response))->errors;
-    foreach ($errorsList as $err) {
-      $errors[] = $err;
-    }
-    if (sizeof($errors) == 0) {
-      $errors[] = "Server error";
-    }
-  } else if($httpCode == 200) {
-          $this->auditlog("getAtts", "web service response => " . $response);
-    $att_object = json_decode($response);
-    if (!empty($att_object)){
-      $atts = array();
-      foreach($att_object as $att){
-        $atts[] = array(
-          "attachmenttypeid"=>$att->attachmenttypeid,
-          "name"=>$att->name,
-          "extension"=>$att->extension
-        );
-      }
-    }
-        $this->auditlog("getAtts", "success");
-  }
-}
+					// JSON was double-encoded, so it needs to be double decoded
+					$errorsList = json_decode(json_decode($response))->errors;
+					foreach ($errorsList as $err) {
+					$errors[] = $err;
+					}
+					if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+					}
+				} else if($httpCode == 500) {
+					$errorsList = json_decode(json_decode($response))->errors;
+					foreach ($errorsList as $err) {
+					$errors[] = $err;
+					}
+					if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+					}
+				} else if($httpCode == 200) {
+					$this->auditlog("getAtts", "web service response => " . $response);
+					$att_object = json_decode($response);
+					if (!empty($att_object)){
+					$atts = array();
+					foreach($att_object as $att){
+						$atts[] = array(
+							"attachmenttypeid"=>$att->attachmenttypeid,
+							"name"=>$att->name,
+							"extension"=>$att->extension
+						);
+					}
+					}
+					$this->auditlog("getAtts", "success");
+				}
+			}
 
-curl_close($ch);
-    return $atts;
-}
+			curl_close($ch);
+			return $atts;
+	}
 /*
     // Get a list of users from the database and will return the $errors array listing any errors encountered
     public function getAttachmentTypes(&$errors) {
