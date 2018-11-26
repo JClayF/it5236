@@ -83,6 +83,68 @@ class Application {
         $dbh = NULL;
 
     }
+	/*
+   public function auditlog($context, $message, $priority = 0, $userid = NULL){
+
+
+        // Declare an errors array
+        $errors = [];
+
+			$url = "https://pkctebai5c.execute-api.us-east-1.amazonaws.com/default/auditLog";
+			$data = array(
+				'context'=>$context,
+				'message'=>$message
+			);
+			$data_json = json_encode($data);
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key  : 60VrPLWxTM4Fd9594YjzC8sZI7WeCJ6c9E36VbqU'));
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$response  = curl_exec($ch);
+			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+			if ($response === FALSE) {
+				$errors[] = "An unexpected failure occurred contacting the web service.";
+			} else {
+
+				if($httpCode == 400) {
+
+					// JSON was double-encoded, so it needs to be double decoded
+					$errorsList = json_decode(json_decode($response))->errors;
+					foreach ($errorsList as $err) {
+						$errors[] = $err;
+					}
+					if (sizeof($errors) == 0) {
+						$errors[] = "Bad input";
+					}
+
+				} else if($httpCode == 500) {
+
+					$errorsList = json_decode(json_decode($response))->errors;
+					foreach ($errorsList as $err) {
+						$errors[] = $err;
+					}
+					if (sizeof($errors) == 0) {
+						$errors[] = "Server error";
+					}
+
+				} else if($httpCode == 200) {
+
+					// $this->sendValidationEmail($userid, $email, $errors);
+
+				}
+
+			}
+
+			curl_close($ch);
+
+        } else {
+            $this->auditlog("register validation error", $errors);
+        }
+	 */
 
     protected function validateUsername($username, &$errors) {
         if (empty($username)) {
@@ -105,11 +167,7 @@ class Application {
     protected function validateEmail($email, &$errors) {
         if (empty($email)) {
             $errors[] = "Missing email";
-        } else if (substr(strtolower(trim($email)), -20) != "@georgiasouthern.edu"
-            && substr(strtolower(trim($email)), -13) != "@thackston.me") {
-                // Verify it's a Georgia Southern email address
-                $errors[] = "Not a Georgia Southern email address";
-            }
+        } 
     }
 
 
@@ -181,7 +239,7 @@ class Application {
 
 				} else if($httpCode == 200) {
 
-					// $this->sendValidationEmail($userid, $email, $errors);
+					$this->sendValidationEmail($userid, $email, $errors);
 
 				}
 
@@ -338,7 +396,7 @@ class Application {
             return FALSE;
         }
     }
-*/
+
 
     // Send an email to validate the address
     protected function sendValidationEmail($userid, $email, &$errors) {
@@ -414,7 +472,7 @@ class Application {
     }
   }
 
-/*
+*/
     // Send an email to validate the address
     protected function sendValidationEmail($userid, $email, &$errors) {
 
@@ -465,7 +523,7 @@ class Application {
 
     }
 
-    */
+    
     // Send an email to validate the address
     public function processEmailValidation($validationid, &$errors) {
 
@@ -2715,6 +2773,65 @@ class Application {
     }
 
 }
+
+/*
+	// Creates a new session in the database for the specified user
+    public function newAttachmentType($name, $extension, &$errors) {
+
+		
+ 
+		$url = "https://ijx8b1gupd.execute-api.us-east-1.amazonaws.com/default/newAttachmentType?name=".$name."$=&extension=".$extension;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : w7dF5gV9BB10BY9JYi8yU33t4JqFKOLG8tCvKecS'));
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+
+			if($httpCode == 400) {
+
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+
+			} else if($httpCode == 500) {
+
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+
+			} else if($httpCode == 200) {
+
+	            $this->auditlog("newAttachmentType", "web service response => " . $response);
+				$regs = json_decode($response)->newAttachmentType;
+		        $this->auditlog("newAttachmentType", "success");
+
+			}
+
+		}
+
+		curl_close($ch);
+
+    }
+	*/
 
 
 ?>
