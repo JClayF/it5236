@@ -1413,9 +1413,6 @@ class Application {
 
     }
 /*
-
-I got this one to show the array in the database, but couldn't get it on the website.
-
     public function getThings(&$errors) {
         
 		
@@ -1586,8 +1583,6 @@ I got this one to show the array in the database, but couldn't get it on the web
     }
 
 /*
-This one gave me for each errors that I couldn't resolve
-
     public function getComments($thingid, &$errors) {
 
     		$url = "https://c8ypvu6eu8.execute-api.us-east-1.amazonaws.com/default/getComments?thingid=".$thingid;
@@ -2045,6 +2040,8 @@ This one gave me for each errors that I couldn't resolve
 
     }
 	*/
+	
+	
     // Get a list of users from the database and will return the $errors array listing any errors encountered
     public function getUsers(&$errors) {
 
@@ -2084,7 +2081,67 @@ This one gave me for each errors that I couldn't resolve
         return $users;
 
     }
-
+	
+	/*
+	public function getUsers(&$errors) {
+		
+		// Assume an empty list of topics
+        $users = array();
+		
+		$url = "https://df7lfmwdz9.execute-api.us-east-1.amazonaws.com/default/getUserList";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : pz55NloOJm4p53WSwhkLL284FhS5wThP8V6v2T9W'));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$this->debug($response);
+		$this->auditlog("getUsers", "response = : $response");
+		
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+		
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+			if($httpCode == 400) {
+				
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+			} else if($httpCode == 500) {
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+			} else if($httpCode == 200) {
+	            $this->auditlog("getUsers", "web service response => " . $response);
+				$users_object = json_decode($response);
+				if (!empty($users_object)){
+					$users = array();
+					foreach($users_object as $user){	
+						$user[] = array(
+							"username"=>$user->username
+						);
+					}
+				}
+		       $this->auditlog("getUsers", "success");
+			}
+		}
+		
+		curl_close($ch);
+        return $users;
+    }
+*/
     // Gets a single user from database and will return the $errors array listing any errors encountered
     public function getUser($userid, &$errors) {
 
@@ -2166,7 +2223,57 @@ This one gave me for each errors that I couldn't resolve
         return $user;
     }
 
-
+/*
+	public function getUser($userid, &$errors) {
+		
+		$loggedinuserid = $user["userid"];
+		
+		$url = "https://67vf69fm70.execute-api.us-east-1.amazonaws.com/default/getUser?userid=".$loggedinuserid;
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : Zfdn9fWjkFCaHB7fUFPfcgFL2IuJPS9PIMJijVi0'));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$this->debug($response);
+		$this->auditlog("getUser", "response = : $response");
+		
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+		
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+			if($httpCode == 400) {
+				
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+			} else if($httpCode == 500) {
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+			} else if($httpCode == 200) {
+	           $this->auditlog("getUsers", "web service response => " . $response);
+		       $this->auditlog("getUser", "success");
+			}
+		}
+		
+		curl_close($ch);
+        return $user;
+    }
+*/
+	
     // Updates a single user in the database and will return the $errors array listing any errors encountered
     public function updateUser($userid, $username, $email, $password, $isadminDB, &$errors) {
 
