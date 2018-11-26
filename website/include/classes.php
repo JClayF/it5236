@@ -551,6 +551,81 @@ class Application {
 
     }
 
+	/*
+	// Send an email to validate the address
+    public function processEmailValidation($validationid, &$errors) {
+
+      $url = "https://oo4l9g9ci9.execute-api.us-east-1.amazonaws.com/default/sendValidationEmail";
+      $data = array(
+        'emailvalidationid'=>$emailvalidationid,
+        'userid'=>$userid,
+        'email'=>$email,
+        'emailsent'=>$emailsent
+      );
+      $data_json = json_encode($data);
+
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key  : dOAcbKY7OyaVeTaYGmU5N8LqTkvxZWiz8E1O7mQA'));
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      $response  = curl_exec($ch);
+      $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+      if ($response === FALSE) {
+        $errors[] = "An unexpected failure occurred contacting the web service.";
+      } else {
+
+        if($httpCode == 400) {
+
+          // JSON was double-encoded, so it needs to be double decoded
+          $errorsList = json_decode(json_decode($response))->errors;
+          foreach ($errorsList as $err) {
+            $errors[] = $err;
+          }
+          if (sizeof($errors) == 0) {
+            $errors[] = "Bad input";
+          }
+
+        } else if($httpCode == 500) {
+
+          $errorsList = json_decode(json_decode($response))->errors;
+          foreach ($errorsList as $err) {
+            $errors[] = $err;
+          }
+          if (sizeof($errors) == 0) {
+            $errors[] = "Server error";
+          }
+
+        } else if($httpCode == 200) {
+
+          // $this->sendValidationEmail($userid, $email, $errors);
+
+
+            $this->auditlog("sendValidationEmail", "Sending message to $email");
+
+            // Send reset email
+            $pageLink = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $pageLink = str_replace("register.php", "login.php", $pageLink);
+            $to      = $email;
+            $subject = 'Confirm your email address';
+            $message = "A request has been made to create an account at https://russellthackston.me for this email address. ".
+                "If you did not make this request, please ignore this message. No other action is necessary. ".
+                "To confirm this address, please click the following link: $pageLink?id=$validationid";
+            $headers = 'From: webmaster@russellthackston.me' . "\r\n" .
+                'Reply-To: webmaster@russellthackston.me' . "\r\n";
+
+            mail($to, $subject, $message, $headers);
+
+            $this->auditlog("sendValidationEmail", "Message sent to $email");
+
+        }
+
+        curl_close($ch);
+    }
+  }
+	*/
     // Creates a new session in the database for the specified user
     public function newSession($userid, &$errors, $registrationcode = NULL) {
 
@@ -610,6 +685,68 @@ class Application {
 
     }
 
+	/*
+	// Creates a new session in the database for the specified user
+    public function newSession($userid, &$errors, $registrationcode = NULL) {
+
+      $url = "https://598bbs1oo3.execute-api.us-east-1.amazonaws.com/default/newSession";
+
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key  : OCkd2nytjX71D4f3j032t82XSUdQWeAx1UMmuCjo'));
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      $response  = curl_exec($ch);
+      $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+      if ($response === FALSE) {
+        $errors[] = "An unexpected failure occurred contacting the web service.";
+      } else {
+
+        if($httpCode == 400) {
+
+          // JSON was double-encoded, so it needs to be double decoded
+          $errorsList = json_decode(json_decode($response))->errors;
+          foreach ($errorsList as $err) {
+            $errors[] = $err;
+          }
+          if (sizeof($errors) == 0) {
+            $errors[] = "Bad input";
+          }
+
+        } else if($httpCode == 500) {
+
+          $errorsList = json_decode(json_decode($response))->errors;
+          foreach ($errorsList as $err) {
+            $errors[] = $err;
+          }
+          if (sizeof($errors) == 0) {
+            $errors[] = "Server error";
+          }
+
+        } else if($httpCode == 200) {
+
+          // $this->sendValidationEmail($userid, $email, $errors);
+
+
+            $this->auditlog("sendValidationEmail", "Sending message to $email");
+
+            // Store the session ID as a cookie in the browser
+                setcookie('sessionid', $sessionid, time()+60*60*24*30);
+                $this->auditlog("session", "new session id: $sessionid for user = $userid");
+
+                // Return the session ID
+                return $sessionid;
+
+        }
+
+        curl_close($ch);
+    }
+  }
+	*/
+	
+	
     public function getUserRegistrations($userid, &$errors) {
 
         // Assume an empty list of regs
