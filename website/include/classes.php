@@ -1581,7 +1581,59 @@ class Application {
         return $thing;
 
     }
-
+/*
+	 public function getThing($thingid, &$errors) {
+		
+		// Assume no thing exists for this thing id
+        $thing = NULL;
+		
+		$url = "https://ajr7zziet6.execute-api.us-east-1.amazonaws.com/default/getThing?thingid=".$thingid;
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-api-key : dH7I0Q0WHJ6PNnzX3XeZK5ycWmniops84V3R6NYH'));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$response  = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$this->debug($response);
+		$this->auditlog("getUser", "response = : $response");
+		
+		$this->auditlog("The HTTP Response is", $response);
+		$this->auditlog("The HTTP Code is", $httpCode);
+		
+		if ($response === FALSE) {
+			$errors[] = "An unexpected failure occurred contacting the web service.";
+		} else {
+			if($httpCode == 400) {
+				
+				// JSON was double-encoded, so it needs to be double decoded
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Bad input";
+				}
+			} else if($httpCode == 500) {
+				$errorsList = json_decode(json_decode($response))->errors;
+				foreach ($errorsList as $err) {
+					$errors[] = $err;
+				}
+				if (sizeof($errors) == 0) {
+					$errors[] = "Server error";
+				}
+			} else if($httpCode == 200) {
+	           $this->auditlog("getUsers", "web service response => " . $response);
+		       $this->auditlog("getUser", "success");
+			}
+		}
+		
+		curl_close($ch);
+        return $thing;
+    }
+*/
+	
+	
 /*
     public function getComments($thingid, &$errors) {
 
